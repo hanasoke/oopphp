@@ -6,10 +6,9 @@ class Bookstore {
           $publisher,
           $price,
           $pages,
-          $time,
-          $type;
+          $time;
 
-  public function __construct($head = "Head", $writer="Anonim", $publisher = "Anonim", $price = 0, $pages = 0, $time = 0, $type = "Tipe") {
+  public function __construct($head = "Head", $writer="Anonim", $publisher = "Anonim", $price = 0, $pages = 0, $time = 0) {
 
     $this->head = $head;
     $this->writer = $writer;
@@ -17,35 +16,46 @@ class Bookstore {
     $this->price = $price;
     $this->pages = $pages;
     $this->time = $time;
-    $this->type = $type;
   }
 
   public function getLabel() {
     return "{$this->head} | {$this->writer} | {$this->publisher}"; 
   }
 
-  public function getInfoLengkap() {
+  public function getInfoProduk() {
     $produk = "{$this->getLabel()} | Rp. {$this->price}";
+    return $produk;
+  }
+}
 
-    if ($this->type == "Komik" || $this->type == "Novel") {
-      $produk .= " - {$this->pages} Pages.";
-    } else if($this->type = "Cartoon") {
-      $produk .= " ~ {$this->time} Hours.";
-    }
+class Cartoon extends Bookstore {
+  public function getInfoProduk() {
+    $produk = "Cartoon : {$this->getLabel()} | {$this->price} | {$this->time} Hours.";
 
     return $produk;
   }
-
 }
 
-$produk1 = new Bookstore("Spongebob SquarePants","Stephen Hillenburg", "United Plankton Picture", 30000, 0, 2, "Cartoon" , 0);
+class Novel extends Bookstore {
+  public function getInfoProduk() {
+    $produk = "Novel : {$this->getLabel()} | {$this->price} | {$this->pages} Pages";
 
-$produk2 = new Bookstore("Laskar Pelangi", "Andrea Hirata", "Bentang Pustaka", 40000, 529, 0, "Novel", 0);
+    return $produk;
+  }
+}
 
-$produk3 = new Bookstore("5cm", "Donny Dhirgantoro", "Grasindo", 55000, 382, 0, "Novel", 0);
+$produk1 = new Cartoon("Spongebob SquarePants","Stephen Hillenburg", "United Plankton Picture", 30000, 0, 2, 0);
 
-echo $produk1->getInfoLengkap();
+$produk2 = new Novel("Laskar Pelangi", "Andrea Hirata", "Bentang Pustaka", 40000, 529, 0, 0);
+
+$produk3 = new Novel("5cm", "Donny Dhirgantoro", "Grasindo", 55000, 382, 0, 0);
+
+$produk4 = new Cartoon("Doraemon", "Fujiko F.Fujjio", "Shogakukan", 40000,0, 5, 0);
+
+echo $produk1->getInfoProduk();
 echo "<br>";
-echo $produk2->getInfoLengkap();
+echo $produk2->getInfoProduk();
 echo "<br>";
-echo $produk3->getInfoLengkap();
+echo $produk3->getInfoProduk();
+print "<br>";
+echo $produk4->getInfoProduk();
