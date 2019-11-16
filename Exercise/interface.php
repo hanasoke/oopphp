@@ -83,15 +83,15 @@ abstract class Bookstore {
 
 class Cartoon extends Bookstore implements InfoProduct {
 
-  public $time;
+public $time;
 
-  public function __construct($head = "Head", $writer="Anonim", $publisher = "Anonim", $price = 0, $time = 0) {
+public function __construct($head = "Head", $writer="Anonim", $publisher = "Anonim", $price = 0, $time = 0) {
 
-    parent::__construct($head, $writer, $publisher, $price);
+  parent::__construct($head, $writer, $publisher, $price);
 
-    $this->time = $time;
+  $this->time = $time;
 
-  }
+}
 
   protected function getInfo(){
     $produk = "{$this->getLabel()} | Rp. {$this->price}";
