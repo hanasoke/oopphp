@@ -1,7 +1,11 @@
 <?php 
 
+interface InfoProduct {
+  public function getInfoProduct();
+}
+
 abstract class Bookstore {
-  private $head,
+  protected $head,
     $writer,
     $publisher,
     $discount,
@@ -72,17 +76,12 @@ abstract class Bookstore {
 
   public function getLabel() {
     return "{$this->head} | {$this->writer} | {$this->publisher}"; 
-  }
-
-  abstract public function getInfoProduct(); 
+  } 
   
-  protected function getInfo(){
-    $produk = "{$this->getLabel()} | Rp. {$this->price}";
-    return $produk;
-  }
+  abstract protected function getInfo();
 }
 
-class Cartoon extends Bookstore {
+class Cartoon extends Bookstore implements InfoProduct {
 
   public $time;
 
@@ -94,14 +93,20 @@ class Cartoon extends Bookstore {
 
   }
 
+  protected function getInfo(){
+    $produk = "{$this->getLabel()} | Rp. {$this->price}";
+    return $produk;
+  }
+
   public function getInfoProduct() {
-    $produk = "Cartoon : ". parent::getInfo()." ~ {$this->time} Hours.";
+    $produk = "Cartoon : ". $this->getInfo()." ~ {$this->time} Hours.";
 
     return $produk;
   }
+
 }
 
-class Novel extends Bookstore {
+class Novel extends Bookstore implements InfoProduct {
 
   public $pages;
 
@@ -111,11 +116,17 @@ class Novel extends Bookstore {
 
     $this->pages = $pages;
   }
-
-  public function getInfoProduct() {
-    $produk = "Novel : ". parent::getInfo()." ~ {$this->pages} Pages.";
+  
+  protected function getInfo(){
+    $produk = "{$this->getLabel()} | Rp. {$this->price}";
     return $produk;
   }
+
+  public function getInfoProduct() {
+    $produk = "Novel : ". $this->getInfo()." ~ {$this->pages} Pages.";
+    return $produk;
+  }
+
 }
 
 class PrintProductInfo {
